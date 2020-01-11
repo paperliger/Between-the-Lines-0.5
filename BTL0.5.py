@@ -1,4 +1,4 @@
-2###----Libraries: NLTK, TextBlob, BeautifulSoup, 
+###----Libraries: NLTK, TextBlob, TextStat, w3lib, 
 
 import nltk
 import urllib.request
@@ -10,7 +10,8 @@ from bs4 import BeautifulSoup
 from collections import Counter
 from urllib.request import Request, urlopen
 from textstat import textstat
-
+import w3lib.html
+import w3lib.encoding
 
 def remove_punctuation(value):
     result=""
@@ -126,7 +127,7 @@ def inputNumber(message):
             print("-----------------------------------\n")
 
      ##################---END. LOOP---##########################################################################################################
-            again = input("\nThank you for using BTL 0.3. Run Again? [Y / N]\n")
+            again = input("\nThank you for using BTL 0.6. Run Again? [Y / N]\n")
             acceptable = ["Y", "y", "N", "n"]
             if again in ["Y", "y"]:
                 print("What kind of document?")
@@ -146,9 +147,11 @@ def inputNumber(message):
             webchoice = input("Please enter the URL of the website.\n")
             webdoc =  urllib.request.urlopen(webchoice)
             readweb = webdoc.read()
-            websoup = BeautifulSoup(readweb,'html5lib')
-            websoup2 = websoup.text
-            lowweb = websoup2.lower()
+            websoup = w3lib.html.remove_tags(readweb)
+#            websoup = BeautifulSoup(readweb,'html5lib')
+          #  websoup2 = websoup.text
+            print(websoup)
+            lowweb = websoup.lower()
             websent = TextBlob(lowweb)
             slashsplice = websent.replace('/', ' ')
             dashsplice = (slashsplice.replace('-', ' '))
@@ -217,7 +220,7 @@ def inputNumber(message):
      ##---------------READABILITY INDEX----------------------------------------
      ###################################################################################
      ##########---------------END LOOP---------------------##############################
-            again = input("\nThank you for using BTL 0.3. Run Again? [Y / N]")
+            again = input("\nThank you for using BTL 0.6. Run Again? [Y / N]")
             acceptable = ["Y", "y", "N", "n"]
             if again in ["Y", "y"]:
                 print("What kind of document?")
@@ -339,7 +342,7 @@ def inputNumber(message):
 ##########---------CHOICE 4: QUIT PROGRAM-------------------------------------------------------------------------------
 ######################################################################################################################
         if userInput == 4:
-            print("Thank you for using TAB 0.3. Bye!")
+            print("Thank you for using BTL 0.6. Bye!")
             quit()
             break
 #---------------------------------------------------------------------------------------------------------------        
